@@ -9,6 +9,9 @@ export default async function Home() {
   const response = await fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`);
   const questions = await response.json();
 
+  console.log(questions);
+  
+
   return (
     <>
       <form>
