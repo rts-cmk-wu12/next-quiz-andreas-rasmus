@@ -1,14 +1,12 @@
-export default async function QuizPage({ params }) {
-
-    const {amount, category, difficulty, type} = params
-    /* const amount = params?.amount
-    const category = params?.category
-    const difficulty = params?.difficulty
-    const type = params?.type */
+export default async function QuizPage({ searchParams }) {
+    const { amount, category, difficulty, type } = searchParams;
 
     const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`;
-    const response = await fetch(url, { cache: 'no-store' });
+    const response = await fetch(url);
     const data = await response.json();
+
+    console.log(data);
+    
 
     function shuffle(array) {
         return array.sort(() => Math.random() - 0.5);
