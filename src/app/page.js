@@ -33,8 +33,8 @@ export default async function Home() {
         
         <div>
           <label>Select Category</label>
-          <select>
-            <option defaultValue="category" name="category">Any Category</option>
+          <select name="category">
+            <option defaultValue="category">Any Category</option>
             {categories.trivia_categories.map (result => (
               <option key={result.id} value={result.id}>{result.name}</option>
               ))}
@@ -55,8 +55,8 @@ export default async function Home() {
           <label>Select Type</label>
             <select name="type">
               <option defaultValue="type">Any Type</option>
-            <option value="multiple-choice">Multiple Choice</option>
-            <option value="true-false">True / False</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True / False</option>
           </select>
         </div>
 
