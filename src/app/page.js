@@ -1,45 +1,33 @@
 
-
 export default async function Home() {
-
-  const tokenResponse = await fetch('https://opentdb.com/api_token.php?command=request');
-  const tokenData = await tokenResponse.json();
-  const sessionToken = tokenData.token;
-
-  const response = await fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`);
-  const questions = await response.json();
+  
 
   const categoryResponse = await fetch(`https://opentdb.com/api_category.php`);
   const categories = await categoryResponse.json();
 
+  const questionCountResponse = await fetch (`https://opentdb.com/api_count.php${category}`);
+  const questionCounter = await questionCountResponse.json();
+
+  console.log(questionCounter)
 
   return (
     <>
       <form method="GET" action="/quiz">
-        <div>
-          <label>Number of Questions</label>
-          <select defaultValue="amount" name="amount">
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="30">30</option>
-            <option value="35">35</option>
-            <option value="40">40</option>
-            <option value="45">45</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-        
         <div>
           <label>Select Category</label>
           <select name="category">
             <option defaultValue="category">Any Category</option>
             {categories.trivia_categories.map (result => (
               <option key={result.id} value={result.id}>{result.name}</option>
-              ))}
+            ))}
             </select>
         </div>
+
+        <div>
+          <label>Number of Questions</label>
+          <input  defaultValue="amount" name="amount" disabled />
+        </div>
+        
 
         <div>
           <label>Select Difficulty</label>
