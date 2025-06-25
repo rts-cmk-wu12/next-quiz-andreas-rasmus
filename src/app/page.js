@@ -12,13 +12,14 @@ export default async function Home() {
   const categoryResponse = await fetch(`https://opentdb.com/api_category.php`);
   const categories = await categoryResponse.json();
 
+
   return (
     <>
-      <form>
+      <form method="GET" action="/quiz">
         <div>
           <label>Number of Questions</label>
-          <select name="amount">
-            <option selected value="10">10</option>
+          <select defaultValue="amount" name="amount">
+            <option value="10">10</option>
             <option value="15">15</option>
             <option value="20">20</option>
             <option value="25">25</option>
@@ -33,7 +34,7 @@ export default async function Home() {
         <div>
           <label>Select Category</label>
           <select>
-            <option selected name="category">Any Category</option>
+            <option defaultValue="category" name="category">Any Category</option>
             {categories.trivia_categories.map (result => (
               <option key={result.id} value={result.id}>{result.name}</option>
               ))}
@@ -42,8 +43,8 @@ export default async function Home() {
 
         <div>
           <label>Select Difficulty</label>
-          <select name="difficulty">
-            <option selected value="difficulty">Any Difficulty</option>
+          <select defaultValue="difficulty"name="difficulty">
+            <option>Any Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -53,7 +54,7 @@ export default async function Home() {
         <div>
           <label>Select Type</label>
             <select name="type">
-              <option selected value="type">Any Type</option>
+              <option defaultValue="type">Any Type</option>
             <option value="multiple-choice">Multiple Choice</option>
             <option value="true-false">True / False</option>
           </select>
