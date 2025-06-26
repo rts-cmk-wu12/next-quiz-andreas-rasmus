@@ -1,20 +1,23 @@
+
 export default async function Home() {
-  // Fetch categories
+
+
   const categoryResponse = await fetch(`https://opentdb.com/api_category.php`);
   const categories = await categoryResponse.json();
 
-  // Fetch total question count for all categories ("Any Category")
-  const countResponse = await fetch(`https://opentdb.com/api_count_global.php`);
-  const countData = await countResponse.json();
-  const maxQuestions = countData.overall.total_num_of_questions;
+
+  console.log()
 
   return (
     <>
-      <form method="GET" action="/quiz">
+      <form method="GET" action="/quiz" className="flex-inline w.full align-center content-center">
+        <h1 className="flex justify-center">Questinoir</h1>
+        <p>test your quessing skills</p>
+      <div className="width.full">
         <div>
           <label>Select Category</label>
-          <select name="category">
-            <option>Any Category</option>
+          <select required name="category">
+            <option value="">Any Category</option>
             {categories.trivia_categories.map(result => (
               <option key={result.id} value={result.id}>{result.name}</option>
             ))}
@@ -24,16 +27,16 @@ export default async function Home() {
         <div>
           <label>Number of Questions</label>
           <select name="amount" defaultValue="10">
-            {[...Array(Math.min(maxQuestions, 50))].map((_, i) => (
-              <option key={i + 1} value={i + 1}>{i + 1}</option>
+            {[...Array(46)].map((_, i) => (
+              <option key={i + 5} value={i + 5}>{i + 5}</option>
             ))}
           </select>
         </div>
 
         <div>
           <label>Select Difficulty</label>
-          <select defaultValue="difficulty" name="difficulty">
-            <option>Any Difficulty</option>
+          <select required defaultValue="difficulty" name="difficulty">
+            <option value="">Any Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -42,14 +45,15 @@ export default async function Home() {
 
         <div>
           <label>Select Type</label>
-          <select name="type">
-            <option defaultValue="type">Any Type</option>
+          <select required name="type">
+            <option value="">Any Type</option>
             <option value="multiple">Multiple Choice</option>
             <option value="boolean">True / False</option>
           </select>
         </div>
+        <button className="bg-[#aaaaaa] text-[#140909]" type="submit">Quiz Time</button>
+        </div>
 
-        <button type="submit">Quiz Time</button>
       </form>
     </>
   );

@@ -1,6 +1,6 @@
 export default async function SetupPage({ searchParams }) {
   const { category } = searchParams;
-  let max = null;
+  let max = 50;
 
   if (category) {
     const res = await fetch(`https://opentdb.com/api_count.php?category=${category}`);
@@ -15,9 +15,12 @@ export default async function SetupPage({ searchParams }) {
         <label>Number of Questions</label>
         {max ? (
           <select name="amount" required>
-            {Array.from({ length: max }, (_, i) => (
-              <option key={i + 1} value={i + 1}>{i + 1}</option>
-            ))}
+            {Array.from(
+              { length: Math.max(0, Math.min(max, 50) - 5 + 1) },
+              (_, i) => (
+                <option key={i + 5} value={i + 5}>{i + 5}</option>
+              )
+            )}
           </select>
         ) : (
           <span>Please select a category to choose the amount of questions.</span>
