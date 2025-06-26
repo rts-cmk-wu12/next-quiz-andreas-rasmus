@@ -16,7 +16,11 @@ export default async function QuizPage({ searchParams }) {
     const data = await response.json();
 
     console.log(data);
+<<<<<<< andreas
+    
+=======
 
+>>>>>>> dev
 
  
     const resultsWithShuffledAnswers = data.results.map(question => ({
