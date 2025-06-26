@@ -19,14 +19,25 @@ export default function QuizClient({ results }) {
     const handleSelect = (answer) => {
         setSelected(answer);
         if (answer === result.correct_answer) {
-            setFeedback("Correct!");
+            setFeedback(
+                <span className="text-green-600 font-semibold">
+                    Correct! You chose: <span className="underline">{decodeHtml(answer)}</span>
+                </span>
+            );
         } else {
-            setFeedback("Wrong!");
+            setFeedback(
+                    <span>
+                        Wrong! You chose: 
+                        <span className="text-red-600 font-semibold underline">{decodeHtml(answer)}</span>
+                        . The correct answer was: 
+                        <span className="text-green-600 font-semibold underline">{decodeHtml(result.correct_answer)}</span>
+                    </span>
+            );
         }
     };
 
     return (
-        <div className="border-2 border-text-white w-96 h-120 p-4 rounded-3xl flex flex-col m-auto mt-40">
+        <div className="border-2 border-text-white w-100 h-120 p-4 rounded-3xl flex flex-col m-auto mt-40">
             <h2 className="text-2xl">{decodeHtml(result.question)}</h2>
             <ul className="flex flex-col gap-3 mt-10">
                 {result.allAnswers.map((answer, idx) => (
@@ -37,8 +48,14 @@ export default function QuizClient({ results }) {
                             id={`answer-${idx}`}
                             checked={selected === answer}
                             onChange={() => handleSelect(answer)}
+                            disabled={selected !== null}
                         />
-                        <label htmlFor={`answer-${idx}`}>{decodeHtml(answer)}</label>
+                        <label
+                            htmlFor={`answer-${idx}`}
+                            className={
+                                selected === answer ? answer === result.correct_answer ? "text-green-500 font-bold" : "text-red-500 font-bold" : ""
+                            }>{decodeHtml(answer)}
+                        </label>
                     </li>
                 ))}
             </ul>
